@@ -6,7 +6,7 @@ While PMTiles support direct usage with range requests, a tile-server is necessa
 
 
 ### Info & Bench
-This PMTiles server is also A LOT MORE faster, and efficient than [Martin tile server](https://github.com/maplibre/martin), though, because of the SDK (`aws-lite`) to interract with S3, the base memory is a bit high, though, for environments like Cloudflare Workers and R2, you could use a custom PMTiles `Source` that could bypass the SDK.
+This PMTiles server is also A LOT MORE faster, and efficient than [Martin tile server](https://github.com/maplibre/martin), though, because of the SDK (`aws-lite`) to interract with object storage provider (S3 / Tigris / R2), the base memory is a bit high, though, for environments like Cloudflare Workers and R2, you could use a custom PMTiles `Source` that could bypass the SDK.
 
 The comparison is also unfair for this server vs Martin, because for this server we fetch from the storage securely with tokens, while with Martin I set the bucket to public and let it directly connect to the storage url without signing overhead.
 
