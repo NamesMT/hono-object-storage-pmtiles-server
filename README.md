@@ -59,10 +59,11 @@ Fetched 500 tiles in 4672.30 ms
 Fetched 500 tiles in 3815.60 ms
 Fetched 500 tiles in 4101.00 ms
 ```
-Somewhere at the middle a few requests started to fail and then the server went dead from OOM and come back processing a bit faster for some reason idk.
-Base memory: 88-89 MB
-Peak: maxed and died from OOM.
-Firecracker load: 0.2
+Somewhere at the middle a few requests started to fail and then the server went dead from OOM and come back processing a bit faster for some reason idk.  
+Base memory: 88-89 MB  
+Peak: maxed and died from OOM.  
+Firecracker load: 0.2  
+
 
 Node's results:
 ```
@@ -77,6 +78,6 @@ Fetched 500 tiles in 1599.60 ms
 Fetched 500 tiles in 1166.70 ms
 Fetched 500 tiles in 1176.50 ms
 ```
-Base memory: 160.5 MB
-Peak: 182.5 MB
-Firecracker load: it's so low it doesn't even display any load, when increasing the test to 1000 parallel tiles the max load is 0.1.
+Base memory: 160.5 MB  
+Peak: 182.5 MB  
+Firecracker load: it's so low it doesn't even display any load, when increasing the test to 1000 parallel tiles the max load is 0.1.  
