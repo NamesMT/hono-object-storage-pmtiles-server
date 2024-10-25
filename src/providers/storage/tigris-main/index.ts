@@ -20,8 +20,8 @@ export async function initTigrisMain() {
     region: 'auto',
     endpoint: 'https://fly.storage.tigris.dev',
     plugins: [import('@aws-lite/s3')],
-    accessKeyId: env.TIGRIS_MAP_KEY_ID!,
-    secretAccessKey: env.TIGRIS_MAP_KEY_SECRET!,
+    accessKeyId: env.TIGRIS_MAIN_KEY_ID!,
+    secretAccessKey: env.TIGRIS_MAIN_KEY_SECRET!,
   })
 
   tigrisMain = aws
