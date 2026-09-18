@@ -3,14 +3,8 @@
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["ESNext"],
-    "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "paths": {
-      "~/*": [
-        "src/*"
-      ]
-    },
     "types": [
       "vitest"
     ],
@@ -26,6 +20,12 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true
   },
+  "include": [
+    "src",
+    "test",
+    "types",
+    "tsdown.config.ts"
+  ],
   "exclude": [
     "dist",
     "node_modules"

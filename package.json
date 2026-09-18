@@ -1,20 +1,30 @@
 {
-  "name": "hosps",
+  "name": "hono-object-storage-pmtiles-server",
   "type": "module",
   "version": "0.1.0",
   "packageManager": "pnpm@9.12.1",
-  "description": "",
+  "description": "Hono PMTiles tile server backed by object storage (Tigris/aws-lite)",
   "author": "NamesMT <dangquoctrung123@gmail.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/namesmt",
-  "homepage": "https://github.com/namesmt/hosps#readme",
+  "homepage": "https://github.com/namesmt/hono-object-storage-pmtiles-server#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/namesmt/hosps.git"
+    "url": "git+https://github.com/namesmt/hono-object-storage-pmtiles-server.git"
   },
-  "bugs": "https://github.com/namesmt/hosps/issues",
-  "keywords": [],
+  "bugs": "https://github.com/namesmt/hono-object-storage-pmtiles-server/issues",
+  "keywords": [
+    "hono",
+    "pmtiles",
+    "tile-server",
+    "object-storage",
+    "tigris",
+    "aws-lite"
+  ],
   "sideEffects": false,
+  "imports": {
+    "#src/*": "./src/*"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
@@ -29,20 +39,17 @@
     "dist"
   ],
   "engines": {
-    "node": ">=20.13.1"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "start": "NODE_ENV=dev tsx src/index.ts",
     "watch": "NODE_ENV=dev tsx watch src/index.ts",
-    "stub": "unbuild --stub",
     "dev": "pnpm run watch",
-    "play": "pnpm run stub && pnpm run --filter playground dev",
-    "play:useBuild": "pnpm run build && pnpm run --filter playground dev",
     "lint": "eslint .",
     "test": "vitest",
     "test:types": "tsc --noEmit",
     "check": "pnpm lint && pnpm test:types && vitest run --coverage",
-    "build": "unbuild",
+    "build": "tsdown",
     "release": "pnpm dlx changelogen@latest --release --push --publish",
     "prepare": "simple-git-hooks",
     "prepublishOnly": "pnpm run build"
@@ -51,13 +58,13 @@
     "@aws-lite/client": "^0.22.4",
     "@aws-lite/s3": "^0.2.6",
     "@aws-lite/s3-types": "^0.2.6",
+    "@namesmt/pmtiles-sources": "^0.1.1",
     "hono": "^4.6.5",
     "pmtiles": "^3.2.0",
     "srvx": "^0.1.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.7.3",
-    "@namesmt/pmtiles-sources": "^0.1.1",
     "@namesmt/utils": "^0.5.6",
     "@types/node": "^20.16.11",
     "@vitest/coverage-v8": "^2.1.3",
@@ -66,9 +73,9 @@
     "lint-staged": "^15.2.10",
     "simple-git-hooks": "^2.11.1",
     "std-env": "^3.7.0",
+    "tsdown": "^0.23.0",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3",
-    "unbuild": "^2.0.0",
     "vitest": "^2.1.3"
   },
   "pnpm": {
