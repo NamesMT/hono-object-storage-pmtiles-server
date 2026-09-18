@@ -1,9 +1,8 @@
-# hosps ![TypeScript heart icon](https://img.shields.io/badge/♡-%23007ACC.svg?logo=typescript&logoColor=white)
+# hono-object-storage-pmtiles-server ![TypeScript heart icon](https://img.shields.io/badge/♡-%23007ACC.svg?logo=typescript&logoColor=white)
 
-**hosps (hono-object-storage-pmtiles-server)** is an example repo for a tile server using [PMTiles](https://github.com/protomaps/PMTiles) and [Hono](https://honojs.dev/), with an object storage (a.k.a S3-compatible storage) provider.  
+**hono-object-storage-pmtiles-server** is an example repo for a tile server using [PMTiles](https://github.com/protomaps/PMTiles) and [Hono](https://honojs.dev/), with an object storage (a.k.a S3-compatible storage) provider.  
 
 While PMTiles support direct usage with range requests, a tile-server is necessary for security and performance like caching.
-
 
 ### Info & Bench
 This PMTiles server is also A LOT MORE faster, and efficient than [Martin tile server](https://github.com/maplibre/martin), though, because of the SDK (`aws-lite`) to interract with object storage provider (S3 / Tigris / R2), the base memory is a bit high, though, for environments like Cloudflare Workers and R2, you could use a custom PMTiles `Source` that could bypass the SDK.
@@ -15,35 +14,35 @@ Bench method: fetching random tiles from browser with caching disabled.
 
 Bench code snippets:
 ```js
-const fetchTile = async (domain, z, x, y) => {  
-    const url = `https://${domain}/world/${z}/${x}/${y}`;  
-    const startTime = performance.now(); // Start time for the fetch  
-    const response = await fetch(url);  
-    const endTime = performance.now(); // End time for the fetch  
-    
-    console.log(`Fetched tile at ${url} in ${(endTime - startTime).toFixed(2)} ms`);  
-};  
+async function fetchTile(domain, z, x, y) {
+  const url = `https://${domain}/world/${z}/${x}/${y}`
+  const startTime = performance.now() // Start time for the fetch  
+  const response = await fetch(url)
+  const endTime = performance.now() // End time for the fetch  
 
-const fetchTiles = async (domain, numTiles) => {  
-    const promises = [];  
-    const overallStartTime = performance.now(); // Start time for overall fetching  
+  console.log(`Fetched tile at ${url} in ${(endTime - startTime).toFixed(2)} ms`)
+}
 
-    for (let i = 0; i < numTiles; i++) {  
-        const z = Math.floor(Math.random() * 5);
-        const x = Math.floor(Math.random() * 100);
-        const y = Math.floor(Math.random() * 100);
-        promises.push(fetchTile(domain, z, x, y));  
-    }  
+async function fetchTiles(domain, numTiles) {
+  const promises = []
+  const overallStartTime = performance.now() // Start time for overall fetching  
 
-    await Promise.all(promises);  
-    const overallEndTime = performance.now(); // End time for overall fetching  
-    console.log(`Fetched ${numTiles} tiles in ${(overallEndTime - overallStartTime).toFixed(2)} ms`);  
-}; 
+  for (let i = 0; i < numTiles; i++) {
+    const z = Math.floor(Math.random() * 5)
+    const x = Math.floor(Math.random() * 100)
+    const y = Math.floor(Math.random() * 100)
+    promises.push(fetchTile(domain, z, x, y))
+  }
+
+  await Promise.all(promises)
+  const overallEndTime = performance.now() // End time for overall fetching  
+  console.log(`Fetched ${numTiles} tiles in ${(overallEndTime - overallStartTime).toFixed(2)} ms`)
+}
 ```
 ```js
 // 10 batches of 500 parallel requests
-for (let i=0; i<10; i++)
-    await fetchTiles('machine.fly.dev', 500);
+for (let i = 0; i < 10; i++)
+  await fetchTiles('machine.fly.dev', 500)
 ```
 
 Martin's results:
@@ -63,7 +62,6 @@ Somewhere at the middle a few requests started to fail and then the server went 
 Base memory: 88-89 MB  
 Peak: maxed and died from OOM.  
 Firecracker load: 0.2  
-
 
 Node's results:
 ```
